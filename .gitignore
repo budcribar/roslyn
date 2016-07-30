@@ -178,3 +178,6 @@ $RECYCLE.BIN/
 
 # Visual Studio Code
 .vscode/
+/BindTo/Tests/BindInMain/TestMain.exe
+/BindTo/Tests/BindInMainNewInAssembly/TestMain.exe
+/BindTo/Tests/BindInMainNewInAssembly - Copy/TestMain.exe
