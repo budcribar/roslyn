@@ -103,6 +103,10 @@ namespace Microsoft.CodeAnalysis.CSharp
                 case SyntaxKind.CheckedStatement:
                     result = BindCheckedStatement((CheckedStatementSyntax)node, diagnostics);
                     break;
+                case SyntaxKind.BindStatement:
+                    result = BindBindStatement((BindStatementSyntax)node, diagnostics);
+                    break;
+
                 case SyntaxKind.UsingStatement:
                     result = BindUsingStatement((UsingStatementSyntax)node, diagnostics);
                     break;
@@ -260,6 +264,17 @@ namespace Microsoft.CodeAnalysis.CSharp
             var usingBinder = this.GetBinder(node);
             Debug.Assert(usingBinder != null);
             return usingBinder.BindUsingStatementParts(diagnostics, usingBinder);
+        }
+        private BoundStatement BindBindStatement(BindStatementSyntax node, DiagnosticBag diagnostics)
+        {
+            var bindBinder = this.GetBinder(node);
+            Debug.Assert(bindBinder != null);
+            return bindBinder.BindBindStatementParts(diagnostics, bindBinder);
+        }
+
+        internal virtual BoundStatement BindBindStatementParts(DiagnosticBag diagnostics, Binder originalBinder)
+        {
+            return this.Next.BindBindStatementParts(diagnostics, originalBinder);
         }
 
         internal virtual BoundStatement BindUsingStatementParts(DiagnosticBag diagnostics, Binder originalBinder)
@@ -602,7 +617,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         private TypeSymbol BindVariableType(CSharpSyntaxNode declarationNode, DiagnosticBag diagnostics, TypeSyntax typeSyntax, ref bool isConst, out bool isVar, out AliasSymbol alias)
         {
             Debug.Assert(declarationNode.Kind() == SyntaxKind.LocalDeclarationStatement || declarationNode.Kind() == SyntaxKind.DeclarationExpression || declarationNode.Kind() == SyntaxKind.VariableDeclaration);
-
+          
             // If the type is "var" then suppress errors when binding it. "var" might be a legal type
             // or it might not; if it is not then we do not want to report an error. If it is, then
             // we want to treat the declaration as an explicitly typed declaration.
@@ -3505,7 +3520,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             {
                 Error(diagnostics, ErrorCode.WRN_FilterIsConstant, filter.FilterExpression);
             }
-            
+
             return boundFilter;
         }
 

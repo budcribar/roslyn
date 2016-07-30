@@ -923,6 +923,13 @@ namespace Microsoft.CodeAnalysis.CSharp
             return null;
         }
 
+        public override BoundNode VisitBindStatement(BoundBindStatement node)
+        {
+            if (_trackExceptions) NotePossibleException(node);
+            VisitStatement(node.Body);
+            return null;
+        }
+
         public override BoundNode VisitIsPatternExpression(BoundIsPatternExpression node)
         {
             VisitRvalue(node.Expression);

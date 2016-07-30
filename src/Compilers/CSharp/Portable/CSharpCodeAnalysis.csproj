@@ -94,6 +94,7 @@
     <Compile Include="Binder\BinderFactory.NodeUsage.cs" />
     <Compile Include="Binder\BinderFlags.cs" />
     <Compile Include="Binder\BinderFlagsExtensions.cs" />
+    <Compile Include="Binder\BindStatementBinder.cs" />
     <Compile Include="Binder\BlockBinder.cs" />
     <Compile Include="Binder\BuckStopsHereBinder.cs" />
     <Compile Include="Binder\CatchClauseBinder.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="Binder\MethodGroupResolution.cs" />
     <Compile Include="Binder\NameofBinder.cs" />
     <Compile Include="Binder\NamespaceOrTypeAndUsingDirective.cs" />
+    <Compile Include="Binder\ObjectCreationExpressionBinder.cs" />
     <Compile Include="Binder\PatternVariableFinder.cs" />
     <Compile Include="Binder\ScriptLocalScopeBinder.cs" />
     <Compile Include="Binder\PatternVariableBinder.cs" />
@@ -409,6 +411,7 @@
     <Compile Include="Lowering\LocalRewriter\LocalRewriter_AssignmentOperator.cs" />
     <Compile Include="Lowering\LocalRewriter\LocalRewriter_Await.cs" />
     <Compile Include="Lowering\LocalRewriter\LocalRewriter_BinaryOperator.cs" />
+    <Compile Include="Lowering\LocalRewriter\LocalRewriter_BindStatement.cs" />
     <Compile Include="Lowering\LocalRewriter\LocalRewriter_Block.cs" />
     <Compile Include="Lowering\LocalRewriter\LocalRewriter_BreakStatement.cs" />
     <Compile Include="Lowering\LocalRewriter\LocalRewriter_Call.cs" />

@@ -304,6 +304,49 @@ namespace Microsoft.CodeAnalysis.CSharp
                 Visit(statement, blockBinder);
             }
         }
+        public override void VisitObjectCreationExpression(ObjectCreationExpressionSyntax node)
+        {
+            //           Bind.dictionary[typeof(ILogger)].GetConstructor(new Type[] { }).Invoke(new object[] { }) as ILogger;
+
+            if (node.Type is IdentifierNameSyntax)
+            {
+                var binder = new ObjectCreationExpressionBinder(_enclosing, node);
+                AddToMap(node, binder);
+
+                string type = ((IdentifierNameSyntax)node.Type).Identifier.Text;
+
+                var code = $"Bind.dictionary[typeof({type})].GetConstructor(new Type[] {{}}).Invoke(new object[] {{}} ) as {type};";
+                
+
+                var stmt = SyntaxFactory.ParseStatement(code) as ExpressionStatementSyntax;
+
+                AddToMap(stmt, binder);
+                Visit(stmt, binder);
+                binder.Expression = stmt.Expression;
+            }
+            else this.DefaultVisit(node);
+        }
+        public override void VisitBindStatement(BindStatementSyntax node)
+        {
+           
+            var bindBinder = new BindStatementBinder(_enclosing, node);
+            AddToMap(node, bindBinder);
+
+            IdentifierNameSyntax i = node.InterfaceIdentifier as IdentifierNameSyntax;
+            IdentifierNameSyntax c = node.ClassIdentifier as IdentifierNameSyntax;
+            var code = $"Bind.dictionary[typeof({i.Identifier.ValueText})]=typeof({c.Identifier.ValueText});";
+          
+            var stmt = SyntaxFactory.ParseStatement(code) as ExpressionStatementSyntax;
+
+            AddToMap(stmt, bindBinder);
+            Visit(stmt, bindBinder);
+            bindBinder.ExpressionStatement = stmt;
+
+            Visit(node.InterfaceIdentifier, bindBinder);
+            Visit(node.ClassIdentifier, bindBinder);
+
+            VisitPossibleEmbeddedStatement(node.Statement, bindBinder);
+        }
 
         public override void VisitUsingStatement(UsingStatementSyntax node)
         {

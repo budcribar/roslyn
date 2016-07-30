@@ -186,7 +186,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         private void CheckModifiers(MethodKind methodKind, Location location, DiagnosticBag diagnostics)
         {
-            if (bodySyntaxReferenceOpt == null && !IsExtern)
+            if (bodySyntaxReferenceOpt == null && !IsExtern && !ContainingType.IsInterfaceType())
             {
                 diagnostics.Add(ErrorCode.ERR_ConcreteMissingBody, location, this);
             }

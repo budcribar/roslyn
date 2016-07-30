@@ -65,6 +65,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 syntax is StatementSyntax ||
                 (kind = syntax.Kind()) == SyntaxKind.CatchClause ||
                 kind == SyntaxKind.CatchFilterClause ||
+                kind == SyntaxKind.ObjectCreationExpression ||  // TODO Bud
                 kind == SyntaxKind.SwitchSection ||
                 kind == SyntaxKind.EqualsValueClause ||
                 kind == SyntaxKind.Attribute ||

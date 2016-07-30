@@ -96,6 +96,8 @@ namespace Microsoft.CodeAnalysis
 
         LocalFunctionStatement = 0x31,
 
+        BindStatement = 0x32,
+
         // Statements that occur only in Visual Basic.
 
         /// <summary>Indicates an <see cref="IStopStatement"/>.</summary>

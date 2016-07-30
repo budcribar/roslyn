@@ -6731,6 +6731,8 @@ tryAgain:
                     return this.ParseCheckedStatement();
                 case SyntaxKind.ConstKeyword:
                     return null;
+                case SyntaxKind.BindKeyword:
+                    return this.ParseBindStatement();
                 case SyntaxKind.DoKeyword:
                     return this.ParseDoStatement();
                 case SyntaxKind.ForKeyword:
@@ -7327,6 +7329,7 @@ tryAgain:
                 case SyntaxKind.ThrowKeyword:
                 case SyntaxKind.UnsafeKeyword:
                 case SyntaxKind.UsingKeyword:
+                case SyntaxKind.BindKeyword:
                 case SyntaxKind.WhileKeyword:
                 case SyntaxKind.OpenBraceToken:
                 case SyntaxKind.SemicolonToken:
@@ -8139,6 +8142,21 @@ tryAgain:
             var @unsafe = this.EatToken(SyntaxKind.UnsafeKeyword);
             var block = this.ParseBlock();
             return _syntaxFactory.UnsafeStatement(@unsafe, block);
+        }
+
+        private BindStatementSyntax ParseBindStatement()
+        {
+            var @bind = this.EatToken(SyntaxKind.BindKeyword);
+            var openParen = this.EatToken(SyntaxKind.OpenParenToken);
+
+            var interfaceId = this.ParseType(false);
+            var equalsToken = this.EatToken(SyntaxKind.EqualsToken);
+            var classId = this.ParseType(false);
+
+            var closeParen = this.EatToken(SyntaxKind.CloseParenToken);
+            var statement = this.ParseEmbeddedStatement(false);
+
+            return _syntaxFactory.BindStatement(@bind, openParen, interfaceId, equalsToken, classId, closeParen, statement);
         }
 
         private UsingStatementSyntax ParseUsingStatement()
@@ -9027,6 +9045,7 @@ tryAgain:
                 case SyntaxKind.SwitchKeyword:
                 case SyntaxKind.TryKeyword:
                 case SyntaxKind.UsingKeyword:
+                case SyntaxKind.BindKeyword:
                 case SyntaxKind.WhileKeyword:
                     return true;
                 default:
@@ -9847,9 +9866,9 @@ tryAgain:
                     TypeSyntax typeSyntax = ParseType(parentIsParameter: false);
                     SyntaxToken identifier = CheckFeatureAvailability(this.ParseIdentifierToken(), MessageID.IDS_FeatureOutVar);
                     var declarationSyntax = _syntaxFactory.VariableDeclaration(typeSyntax,
-                                   new SeparatedSyntaxList<VariableDeclaratorSyntax>(
-                                       new SyntaxList<CSharpSyntaxNode>(
-                                           _syntaxFactory.VariableDeclarator(identifier, null, null))), null);
+                                    new SeparatedSyntaxList<VariableDeclaratorSyntax>(
+                                        new SyntaxList<CSharpSyntaxNode>(
+                                            _syntaxFactory.VariableDeclarator(identifier, null, null))), null);
                     expression = _syntaxFactory.DeclarationExpression(declarationSyntax);
                 }
                 else
@@ -10191,7 +10210,7 @@ tryAgain:
                         expression = ParseSubExpression(0);
 
                         arg = _syntaxFactory.Argument(nameColon, refOrOutKeyword: default(SyntaxToken), expression: expression);
-                    }
+                     }
                     else
                     {
                         arg = _syntaxFactory.Argument(nameColon: null, refOrOutKeyword: default(SyntaxToken), expression: expression);

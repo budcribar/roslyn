@@ -168,6 +168,11 @@ namespace Microsoft.CodeAnalysis.Semantics
             Visit(operation.Body);
         }
 
+        public override void VisitBindStatement(IBindStatement operation)
+        {
+            Visit(operation.Body);
+            Visit(operation.Binds);
+        }
         public override void VisitFixedStatement(IFixedStatement operation)
         {
             Visit(operation.Variables);

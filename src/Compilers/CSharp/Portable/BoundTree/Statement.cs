@@ -494,6 +494,59 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
+    internal partial class BoundBindStatement : IBindStatement
+    {
+        IOperation IBindStatement.Binds => this.Binds;
+
+        IOperation IBindStatement.Body => this.Body;
+
+        protected override OperationKind StatementKind => OperationKind.BindStatement;
+
+        public override void Accept(OperationVisitor visitor)
+        {
+            visitor.VisitBindStatement(this);
+        }
+
+        public override TResult Accept<TArgument, TResult>(OperationVisitor<TArgument, TResult> visitor, TArgument argument)
+        {
+            return visitor.VisitBindStatement(this, argument);
+        }
+    }
+
+    internal partial class BoundInterfaceObjectCreationStatement : IObjectCreationExpression
+    {
+        IMethodSymbol IObjectCreationExpression.Constructor => this.Constructor;
+
+        public ImmutableArray<ISymbolInitializer> MemberInitializers => this.MemberInitializers;
+
+        public ImmutableArray<IArgument> ArgumentsInParameterOrder => this.ArgumentsInParameterOrder;
+
+        protected override OperationKind StatementKind => OperationKind.ObjectCreationExpression;
+
+        public bool IsInvalid => this.IsInvalid;
+
+        public ITypeSymbol Type => this.Type;
+
+        public Optional<object> ConstantValue => this.ConstantValue;
+
+
+
+        public IArgument GetArgumentMatchingParameter(IParameterSymbol parameter)
+        {
+            return null;
+        }
+
+        public override void Accept(OperationVisitor visitor)
+        {
+            visitor.VisitInterfaceObjectCreationStatement(this);
+        }
+
+        public override TResult Accept<TArgument, TResult>(OperationVisitor<TArgument, TResult> visitor, TArgument argument)
+        {
+            return visitor.VisitInterfaceObjectCreationStatement(this, argument);
+        }
+    }
+
     internal partial class BoundUsingStatement : IUsingStatement
     {
         IVariableDeclarationStatement IUsingStatement.Declaration => this.DeclarationsOpt;

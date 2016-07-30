@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         public static IEnumerable<SyntaxKind> GetReservedKeywordKinds()
         {
-            for (int i = (int)SyntaxKind.BoolKeyword; i <= (int)SyntaxKind.ImplicitKeyword; i++)
+            for (int i = (int)SyntaxKind.BoolKeyword; i <= (int)SyntaxKind.BindKeyword; i++)
             {
                 yield return (SyntaxKind)i;
             }
@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         public static bool IsReservedKeyword(SyntaxKind kind)
         {
-            return kind >= SyntaxKind.BoolKeyword && kind <= SyntaxKind.ImplicitKeyword;
+            return kind >= SyntaxKind.BoolKeyword && kind <= SyntaxKind.BindKeyword;
         }
 
         public static bool IsAttributeTargetSpecifier(SyntaxKind kind)
@@ -937,6 +937,9 @@ namespace Microsoft.CodeAnalysis.CSharp
                     return SyntaxKind.ImplicitKeyword;
                 case "explicit":
                     return SyntaxKind.ExplicitKeyword;
+                case "bind":
+                    return SyntaxKind.BindKeyword;
+                        
                 default:
                     return SyntaxKind.None;
             }
@@ -1505,6 +1508,8 @@ namespace Microsoft.CodeAnalysis.CSharp
                     return "r";
                 case SyntaxKind.LoadKeyword:
                     return "load";
+                case SyntaxKind.BindKeyword:
+                    return "bind";
 
                 // contextual keywords
                 case SyntaxKind.YieldKeyword:

@@ -206,6 +206,12 @@ namespace Microsoft.CodeAnalysis.CSharp
             throw ExceptionUtilities.Unreachable;
         }
 
+        internal override BoundStatement BindBindStatementParts(DiagnosticBag diagnostics, Binder originalBinder)
+        {
+            // There's supposed to be a UsingStatementBinder (or other overrider of this method) in the chain.
+            throw ExceptionUtilities.Unreachable;
+        }
+
         internal override BoundStatement BindLockStatementParts(DiagnosticBag diagnostics, Binder originalBinder)
         {
             // There's supposed to be a LockBinder (or other overrider of this method) in the chain.

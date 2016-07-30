@@ -156,7 +156,9 @@ namespace Microsoft.CodeAnalysis.CSharp
         UnsafeKeyword = 8381,
         OperatorKeyword = 8382,
         ExplicitKeyword = 8383,
-        ImplicitKeyword = 8384,
+        ImplicitKeyword = 8384,  
+
+        BindKeyword = 8385,  // Note: Change GetReservedKeywordsKinds and IsReservedKeyword if you add new Keyword in this group
 
         // contextual keywords
         YieldKeyword = 8405,
@@ -471,6 +473,7 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         // statements that didn't fit above
         LocalFunctionStatement = 8830,
+        BindStatement = 8831,
 
         // declarations
         CompilationUnit = 8840,
@@ -538,7 +541,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         LoadDirectiveTrivia = 8923,
         // Changes after C# 6
 
-        // tuples
+		// tuples
         TupleType = 8925,
         TupleElement = 8926,
         TupleExpression = 8927,

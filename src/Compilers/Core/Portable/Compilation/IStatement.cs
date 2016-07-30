@@ -501,6 +501,16 @@ namespace Microsoft.CodeAnalysis.Semantics
         IOperation Value { get; }
     }
 
+    public interface IBindStatement : IOperation
+    {
+        IOperation Binds { get; }
+
+        /// <summary>
+        /// Body of the bind statement over which the Interfaces are mapped to the classes.
+        /// </summary>
+        IOperation Body { get; }
+    }
+
     /// <summary>
     /// Represents a C# fixed staement.
     /// </summary>

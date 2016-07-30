@@ -135,6 +135,16 @@ namespace Microsoft.CodeAnalysis.Semantics
             DefaultVisit(operation);
         }
 
+        public virtual void VisitBindStatement(IBindStatement operation)
+        {
+            DefaultVisit(operation);
+        }
+
+        public virtual void VisitInterfaceObjectCreationStatement(IObjectCreationExpression operation)
+        {
+            DefaultVisit(operation);
+        }
+
         public virtual void VisitFixedStatement(IFixedStatement operation)
         {
             DefaultVisit(operation);
@@ -534,7 +544,17 @@ namespace Microsoft.CodeAnalysis.Semantics
         {
             return DefaultVisit(operation, argument);
         }
-        
+
+        public virtual TResult VisitBindStatement(IBindStatement operation, TArgument argument)
+        {
+            return DefaultVisit(operation, argument);
+        }
+
+        public virtual TResult VisitInterfaceObjectCreationStatement(IObjectCreationExpression operation, TArgument argument)
+        {
+            return DefaultVisit(operation, argument);
+        }
+
         public virtual TResult VisitFixedStatement(IFixedStatement operation, TArgument argument)
         {
             return DefaultVisit(operation, argument);
