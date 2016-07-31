@@ -292,6 +292,9 @@ namespace Microsoft.VisualStudio.LanguageServices.CSharp.Debugging
                     case SyntaxKind.UsingStatement:
                         AddLastStatementOfConstruct((statement as UsingStatementSyntax).Statement);
                         break;
+                    case SyntaxKind.BindStatement:
+                        AddLastStatementOfConstruct((statement as BindStatementSyntax).Statement);
+                        break;
                     case SyntaxKind.WhileStatement:
                         AddLastStatementOfConstruct((statement as WhileStatementSyntax).Statement);
                         break;

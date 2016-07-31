@@ -140,6 +140,7 @@
     <Compile Include="Highlighting\KeywordHighlighters\SwitchStatementHighlighter.cs" />
     <Compile Include="Highlighting\KeywordHighlighters\TryStatementHighlighter.cs" />
     <Compile Include="Highlighting\KeywordHighlighters\UnsafeStatementHighlighter.cs" />
+    <Compile Include="Highlighting\KeywordHighlighters\BindStatementHighlighter.cs" />
     <Compile Include="Highlighting\KeywordHighlighters\UsingStatementHighlighter.cs" />
     <Compile Include="Highlighting\KeywordHighlighters\YieldStatementHighlighter.cs" />
     <Compile Include="HighlightReferences\CSharpDocumentHighlightsService.cs" />

@@ -4270,8 +4270,8 @@ namespace Microsoft.CodeAnalysis.CSharp
             return BindToBindExpression(node, type, boundInitializerOpt, diagnostics);
 
             // interfaces can't be instantiated in C#
-            //diagnostics.Add(ErrorCode.ERR_NoNewAbstract, node.Location, type);
-            //return BindBadInterfaceCreationExpression(node, type, diagnostics);
+            // diagnostics.Add(ErrorCode.ERR_NoNewAbstract, node.Location, type);
+            // return BindBadInterfaceCreationExpression(node, type, diagnostics);
         }
     
     private BoundExpression BindToBindExpression(ObjectCreationExpressionSyntax node, NamedTypeSymbol interfaceType, BoundExpression boundInitializerOpt, DiagnosticBag diagnostics)

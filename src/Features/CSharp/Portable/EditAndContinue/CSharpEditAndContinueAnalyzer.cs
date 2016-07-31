@@ -1206,6 +1206,10 @@ namespace Microsoft.CodeAnalysis.CSharp.EditAndContinue
                 case SyntaxKind.Block:
                     return ((BlockSyntax)node).OpenBraceToken.Span;
 
+                case SyntaxKind.BindStatement:
+                    var bindStatement = (BindStatementSyntax)node;
+                    return TextSpan.FromBounds(bindStatement.BindKeyword.SpanStart, bindStatement.CloseParenToken.Span.End);
+
                 case SyntaxKind.UsingStatement:
                     var usingStatement = (UsingStatementSyntax)node;
                     return TextSpan.FromBounds(usingStatement.UsingKeyword.SpanStart, usingStatement.CloseParenToken.Span.End);

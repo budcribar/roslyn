@@ -118,7 +118,15 @@ namespace Microsoft.CodeAnalysis.CSharp.Diagnostics.AddBraces
                         usingStatement.UsingKeyword.GetLocation(), SyntaxFacts.GetText(SyntaxKind.UsingKeyword)));
                 }
             }
-
+            if (node.IsKind(SyntaxKind.BindStatement))
+            {
+                var bindStatement = (BindStatementSyntax)context.Node;
+                if (AnalyzeBindStatement(bindStatement))
+                {
+                    context.ReportDiagnostic(Diagnostic.Create(s_descriptor,
+                        bindStatement.BindKeyword.GetLocation(), SyntaxFacts.GetText(SyntaxKind.BindKeyword)));
+                }
+            }
             if (node.IsKind(SyntaxKind.LockStatement))
             {
                 var lockStatement = (LockStatementSyntax)context.Node;
@@ -152,6 +160,10 @@ namespace Microsoft.CodeAnalysis.CSharp.Diagnostics.AddBraces
         private bool AnalyzeUsingStatement(UsingStatementSyntax usingStatement) =>
             !usingStatement.Statement.IsKind(SyntaxKind.Block) &&
             !usingStatement.Statement.IsKind(SyntaxKind.UsingStatement);
+
+        private bool AnalyzeBindStatement(BindStatementSyntax bindStatement) =>
+          !bindStatement.Statement.IsKind(SyntaxKind.Block) &&
+          !bindStatement.Statement.IsKind(SyntaxKind.BindStatement);
 
         private bool AnalyzeLockStatement(LockStatementSyntax lockStatement) =>
             !lockStatement.Statement.IsKind(SyntaxKind.Block) &&

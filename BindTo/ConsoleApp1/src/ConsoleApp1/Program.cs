@@ -44,13 +44,13 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        bind (ILogger = Logger) {
+        //bind (ILogger = Logger) {
             //GetSemanticModelForSpanAsync
             //ILogger l = new ILogger();
 
-            l.Log("Test");
+            //l.Log("Test");
             Console.Read();
-        };
+      //  };
 
     }
 }

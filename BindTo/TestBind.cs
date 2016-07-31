@@ -11,9 +11,10 @@ public class Executive
 {
     public void Run()
     {
-        var l = new ILogger();
+        var l = new Logger();
         l.Log("Test");
     }
+
 }
 
 public interface ILogger
@@ -37,12 +38,12 @@ public class Program
     public static void Main(string[] args)
     {
        
-         bind(ILogger = CustomLogger) {
+         bind(ILogger = Logger) {
 
             new Executive().Run();
-
+          
             Console.Read();
-         };
+        };
 
     }
 } 

@@ -930,6 +930,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Extensions
                    node is LabeledStatementSyntax ||
                    node is LockStatementSyntax ||
                    node is UsingStatementSyntax ||
+                   node is BindStatementSyntax ||
                    node is WhileStatementSyntax;
         }
 
@@ -945,6 +946,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Extensions
                 (LabeledStatementSyntax n) => n.Statement,
                 (LockStatementSyntax n) => n.Statement,
                 (UsingStatementSyntax n) => n.Statement,
+                (BindStatementSyntax n) => n.Statement,
                 (WhileStatementSyntax n) => n.Statement,
                 (SyntaxNode n) => null);
         }

@@ -321,6 +321,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Formatting
                 return usingStatement.CloseParenToken.Equals(token);
             }
 
+            var bindStatement = statement as BindStatementSyntax;
+            if (bindStatement != null)
+            {
+                return bindStatement.CloseParenToken.Equals(token);
+            }
+
             var fixedStatement = statement as FixedStatementSyntax;
             if (fixedStatement != null)
             {

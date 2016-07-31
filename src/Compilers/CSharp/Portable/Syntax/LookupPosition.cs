@@ -314,6 +314,8 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax
                     return ((UnsafeStatementSyntax)statement).UnsafeKeyword;
                 case SyntaxKind.UsingStatement:
                     return ((UsingStatementSyntax)statement).UsingKeyword;
+                case SyntaxKind.BindStatement:
+                    return ((BindStatementSyntax)statement).BindKeyword;                    
                 case SyntaxKind.WhileStatement:
                     return ((WhileStatementSyntax)statement).WhileKeyword;
                 case SyntaxKind.YieldReturnStatement:
@@ -391,6 +393,8 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax
                     return ((UnsafeStatementSyntax)statement).Block.CloseBraceToken;
                 case SyntaxKind.UsingStatement:
                     return GetFirstExcludedToken(((UsingStatementSyntax)statement).Statement);
+                case SyntaxKind.BindStatement:
+                    return GetFirstExcludedToken(((BindStatementSyntax)statement).Statement);
                 case SyntaxKind.WhileStatement:
                     return GetFirstExcludedToken(((WhileStatementSyntax)statement).Statement);
                 case SyntaxKind.YieldReturnStatement:

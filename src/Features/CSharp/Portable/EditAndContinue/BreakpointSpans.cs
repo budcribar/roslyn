@@ -459,6 +459,10 @@ namespace Microsoft.CodeAnalysis.CSharp.EditAndContinue
                         return CreateSpan(forEachStatement.Expression);
                     }
 
+                case SyntaxKind.BindStatement:
+                    var bindStatement = (BindStatementSyntax)statement;
+                    return CreateSpan(bindStatement, bindStatement.CloseParenToken);
+
                 case SyntaxKind.UsingStatement:
                     var usingStatement = (UsingStatementSyntax)statement;
                     if (usingStatement.Declaration != null)

@@ -259,6 +259,13 @@ namespace Microsoft.CodeAnalysis.CSharp.Formatting
                 return;
             }
 
+            var bindStatement = node as BindStatementSyntax;
+            if (bindStatement != null && bindStatement.Statement != null && !(bindStatement.Statement is BlockSyntax || bindStatement.Statement is BindStatementSyntax))
+            {
+                AddEmbeddedStatementsIndentationOperation(list, bindStatement.Statement);
+                return;
+            }
+
             var fixedStatement = node as FixedStatementSyntax;
             if (fixedStatement != null && fixedStatement.Statement != null && !(fixedStatement.Statement is BlockSyntax || fixedStatement.Statement is FixedStatementSyntax))
             {

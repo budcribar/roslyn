@@ -34,6 +34,7 @@ namespace Microsoft.CodeAnalysis.CSharp.ExtractMethod
                 block.Parent is IfStatementSyntax ||
                 block.Parent is LockStatementSyntax ||
                 block.Parent is UsingStatementSyntax ||
+                block.Parent is BindStatementSyntax ||
                 block.Parent is WhileStatementSyntax)
             {
                 return true;
@@ -74,6 +75,7 @@ namespace Microsoft.CodeAnalysis.CSharp.ExtractMethod
                 statement is TryStatementSyntax ||
                 statement is UnsafeStatementSyntax ||
                 statement is UsingStatementSyntax ||
+                statement is BindStatementSyntax ||
                 statement is WhileStatementSyntax)
             {
                 return true;
