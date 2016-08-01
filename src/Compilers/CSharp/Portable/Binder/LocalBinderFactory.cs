@@ -315,8 +315,7 @@ namespace Microsoft.CodeAnalysis.CSharp
               
                 string type = ((IdentifierNameSyntax)node.Type).Identifier.Text;
 
-                var code = $"Bind.dictionary[typeof({type})].GetConstructor(new Type[] {{}}).Invoke(new object[] {{}} ) as {type};";
-                
+                var code = $"System.Bind.Get(typeof({type})).GetConstructor(new Type[] {{}}).Invoke(new object[] {{}} ) as {type}";
 
                 var stmt = SyntaxFactory.ParseStatement(code) as ExpressionStatementSyntax;
 
@@ -334,17 +333,22 @@ namespace Microsoft.CodeAnalysis.CSharp
 
             IdentifierNameSyntax i = node.InterfaceIdentifier as IdentifierNameSyntax;
             IdentifierNameSyntax c = node.ClassIdentifier as IdentifierNameSyntax;
-            var code = $"Bind.dictionary[typeof({i.Identifier.ValueText})]=typeof({c.Identifier.ValueText});";
-          
-            var stmt = SyntaxFactory.ParseStatement(code) as ExpressionStatementSyntax;
 
-            AddToMap(stmt, bindBinder);
-            Visit(stmt, bindBinder);
-            bindBinder.ExpressionStatement = stmt;
+            if (i != null && c != null)
+            {
+                var code = $"System.Bind.Add(typeof({i.Identifier.ValueText}), typeof({c.Identifier.ValueText}));";
 
-            Visit(node.InterfaceIdentifier, bindBinder);
-            Visit(node.ClassIdentifier, bindBinder);
+                var stmt = SyntaxFactory.ParseStatement(code) as ExpressionStatementSyntax;
 
+                AddToMap(stmt, bindBinder);
+                Visit(stmt, bindBinder);
+
+                Visit(node.InterfaceIdentifier, bindBinder);
+                Visit(node.ClassIdentifier, bindBinder);
+
+                bindBinder.ExpressionStatement = stmt;
+            }
+            
             VisitPossibleEmbeddedStatement(node.Statement, bindBinder);
         }
 

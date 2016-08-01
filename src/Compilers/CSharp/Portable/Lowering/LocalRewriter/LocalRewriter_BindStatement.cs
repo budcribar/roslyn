@@ -17,15 +17,19 @@ namespace Microsoft.CodeAnalysis.CSharp
         public override BoundNode VisitBindStatement(BoundBindStatement node)
         {
             // Generate code for: Bind.dictionary[typeof(ILogger)] = typeof(Logger);
-
+          
             BoundStatement boundStatement = (BoundStatement)Visit(node.Binds);
-            BoundStatement rewrittenBody = (BoundStatement)Visit(node.Body);
+            BoundStatement bodyStatement = (BoundStatement)Visit(node.Body);
+
+            List<BoundStatement> list = new List<BoundStatement>();
+            if (boundStatement != null) list.Add(boundStatement);
+            list.Add(bodyStatement);
 
             return new BoundBlock(
                 syntax: node.Syntax,
                 locals: ImmutableArray<LocalSymbol>.Empty,
                 localFunctions: ImmutableArray<LocalFunctionSymbol>.Empty,
-                statements: ImmutableArray.Create<BoundStatement>(boundStatement, rewrittenBody));
+                statements: list.ToImmutableArray());
 
         }
     }

@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
-
 public class Executive
 {
     public void Run()
@@ -29,12 +28,17 @@ public class CustomLogger : ILogger
     public void Log(string text) { Console.WriteLine("Custom" + text); }
 }
 
+public class Buster
+{
+
+}
+
 public class Program
 {
     public static void Main(string[] args)
     {
        
-         bind(ILogger = CustomLogger) {
+         bind(ILogger = Buster) {
 
             new Executive().Run();
           

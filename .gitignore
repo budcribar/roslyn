@@ -183,3 +183,4 @@ $RECYCLE.BIN/
 /BindTo/Tests/BindInMainNewInAssembly - Copy/TestMain.exe
 /BindTo/Fail.exe
 /BindTo/TestBind.exe
+/BindTo/Bind.dll

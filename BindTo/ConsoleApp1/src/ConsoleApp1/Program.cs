@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Bind;
 
-public class Bind
-{
-    public static Dictionary<Type, Type> dictionary = new Dictionary<Type, Type> { { typeof(ILogger), typeof(Logger) } };
-}
 
 public interface ILogger
 {

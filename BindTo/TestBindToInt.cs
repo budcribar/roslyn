@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
-
 public class Executive
 {
     public void Run()
@@ -34,7 +33,7 @@ public class Program
     public static void Main(string[] args)
     {
        
-         bind(ILogger = CustomLogger) {
+         bind(int = int) {
 
             new Executive().Run();
           
