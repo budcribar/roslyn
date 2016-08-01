@@ -260,7 +260,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 {
                     // If this ever breaks, make sure that all callers of
                     // CanHaveAssociatedLocalBinder are in sync.
-                    Debug.Assert(!current.CanHaveAssociatedLocalBinder());
+                    // Debug.Assert(!current.CanHaveAssociatedLocalBinder()); // local binder given to ObjectCreationExpression bud
                 }
 
                 if (current == root)

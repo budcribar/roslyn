@@ -4280,6 +4280,14 @@ namespace Microsoft.CodeAnalysis.CSharp
         Debug.Assert(interfaceType.IsInterfaceType());
 
         var bindBinder = this.GetBinder(node) as ObjectCreationExpressionBinder;
+
+        if (bindBinder == null)
+            {
+                // TODO: hack because I am not getting a local binder in all cases
+                diagnostics.Add(ErrorCode.ERR_NoNewAbstract, node.Location, interfaceType);
+                return BindBadInterfaceCreationExpression(node, interfaceType, diagnostics);
+            };
+
         Debug.Assert(bindBinder != null);
         return bindBinder.BindObjectCreationExpression(diagnostics, bindBinder);
     }

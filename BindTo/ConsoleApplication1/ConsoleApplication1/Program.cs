@@ -44,7 +44,7 @@ public class Program
 {
     public static void Main(string[] args)
     {
-         bind (ILogger = Logger) {
+         bind (ILogger = CustomLogger) {
 
        
         ILogger l = new ILogger();

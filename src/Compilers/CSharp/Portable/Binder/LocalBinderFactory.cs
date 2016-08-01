@@ -307,12 +307,12 @@ namespace Microsoft.CodeAnalysis.CSharp
         public override void VisitObjectCreationExpression(ObjectCreationExpressionSyntax node)
         {
             //           Bind.dictionary[typeof(ILogger)].GetConstructor(new Type[] { }).Invoke(new object[] { }) as ILogger;
+            var binder = new ObjectCreationExpressionBinder(_enclosing, node);
+            AddToMap(node, binder);
 
             if (node.Type is IdentifierNameSyntax)
             {
-                var binder = new ObjectCreationExpressionBinder(_enclosing, node);
-                AddToMap(node, binder);
-
+              
                 string type = ((IdentifierNameSyntax)node.Type).Identifier.Text;
 
                 var code = $"Bind.dictionary[typeof({type})].GetConstructor(new Type[] {{}}).Invoke(new object[] {{}} ) as {type};";
@@ -324,7 +324,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 Visit(stmt, binder);
                 binder.Expression = stmt.Expression;
             }
-            else this.DefaultVisit(node);
+           
         }
         public override void VisitBindStatement(BindStatementSyntax node)
         {

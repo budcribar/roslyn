@@ -35,7 +35,7 @@ public class Logger : ILogger
 public class CustomLogger : ILogger
 {
     public CustomLogger() { }
-    public void Log(string text) { Console.WriteLine("Custome" + text); }
+    public void Log(string text) { Console.WriteLine("Custom" + text); }
 
     public string Name { get; set; }
 }
@@ -44,13 +44,11 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        //bind (ILogger = Logger) {
-            //GetSemanticModelForSpanAsync
-            //ILogger l = new ILogger();
-
-            //l.Log("Test");
-            Console.Read();
-      //  };
+        bind (ILogger = Logger) {
+           ILogger l = new ILogger();
+           l.Log("Test");
+           Console.Read();
+       }
 
     }
 }
