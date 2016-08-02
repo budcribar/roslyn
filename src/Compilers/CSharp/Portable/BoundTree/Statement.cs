@@ -496,7 +496,7 @@ namespace Microsoft.CodeAnalysis.CSharp
 
     internal partial class BoundBindStatement : IBindStatement
     {
-        IOperation IBindStatement.Binds => this.Binds;
+        ImmutableArray<IOperation> IBindStatement.Binds => this.Binds;
 
         IOperation IBindStatement.Body => this.Body;
 

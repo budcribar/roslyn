@@ -503,7 +503,7 @@ namespace Microsoft.CodeAnalysis.Semantics
 
     public interface IBindStatement : IOperation
     {
-        IOperation Binds { get; }
+        ImmutableArray<IOperation> Binds { get; }
 
         /// <summary>
         /// Body of the bind statement over which the Interfaces are mapped to the classes.

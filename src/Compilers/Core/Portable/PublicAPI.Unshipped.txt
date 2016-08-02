@@ -367,7 +367,7 @@ Microsoft.CodeAnalysis.Semantics.IBinaryOperatorExpression.BinaryOperationKind.g
 Microsoft.CodeAnalysis.Semantics.IBinaryOperatorExpression.LeftOperand.get -> Microsoft.CodeAnalysis.IOperation
 Microsoft.CodeAnalysis.Semantics.IBinaryOperatorExpression.RightOperand.get -> Microsoft.CodeAnalysis.IOperation
 Microsoft.CodeAnalysis.Semantics.IBindStatement
-Microsoft.CodeAnalysis.Semantics.IBindStatement.Binds.get -> Microsoft.CodeAnalysis.IOperation
+Microsoft.CodeAnalysis.Semantics.IBindStatement.Binds.get -> System.Collections.Immutable.ImmutableArray<Microsoft.CodeAnalysis.IOperation>
 Microsoft.CodeAnalysis.Semantics.IBindStatement.Body.get -> Microsoft.CodeAnalysis.IOperation
 Microsoft.CodeAnalysis.Semantics.IBlockStatement
 Microsoft.CodeAnalysis.Semantics.IBlockStatement.Locals.get -> System.Collections.Immutable.ImmutableArray<Microsoft.CodeAnalysis.ILocalSymbol>

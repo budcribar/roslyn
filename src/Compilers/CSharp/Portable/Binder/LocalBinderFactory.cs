@@ -326,28 +326,30 @@ namespace Microsoft.CodeAnalysis.CSharp
            
         }
         public override void VisitBindStatement(BindStatementSyntax node)
-        {
-           
+        {           
             var bindBinder = new BindStatementBinder(_enclosing, node);
             AddToMap(node, bindBinder);
 
-            IdentifierNameSyntax i = node.InterfaceIdentifier as IdentifierNameSyntax;
-            IdentifierNameSyntax c = node.ClassIdentifier as IdentifierNameSyntax;
-
-            if (i != null && c != null)
+            foreach(var bs in node.Bindings)
             {
-                var code = $"System.Bind.Add(typeof({i.Identifier.ValueText}), typeof({c.Identifier.ValueText}));";
+                IdentifierNameSyntax i = bs.InterfaceIdentifier as IdentifierNameSyntax;
+                IdentifierNameSyntax c = bs.ClassIdentifier as IdentifierNameSyntax;
 
-                var stmt = SyntaxFactory.ParseStatement(code) as ExpressionStatementSyntax;
+                if (i != null && c != null)
+                {
+                    var code = $"System.Bind.Add(typeof({i.Identifier.ValueText}), typeof({c.Identifier.ValueText}));";
 
-                AddToMap(stmt, bindBinder);
-                Visit(stmt, bindBinder);
+                    var stmt = SyntaxFactory.ParseStatement(code) as ExpressionStatementSyntax;
 
-                Visit(node.InterfaceIdentifier, bindBinder);
-                Visit(node.ClassIdentifier, bindBinder);
+                    AddToMap(stmt, bindBinder);
+                    Visit(stmt, bindBinder);
 
-                bindBinder.ExpressionStatement = stmt;
-            }
+                    Visit(bs.InterfaceIdentifier, bindBinder);
+                    Visit(bs.ClassIdentifier, bindBinder);
+
+                    bindBinder.ExpressionStatement.Add(stmt);
+                }
+            }        
             
             VisitPossibleEmbeddedStatement(node.Statement, bindBinder);
         }

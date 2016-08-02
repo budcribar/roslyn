@@ -24,13 +24,13 @@ public class Program
 {
     public static void Main(string[] args)
     {
-         bind (ILogger = CustomLogger) {
-    
-        ILogger l = new ILogger();
-        
-        l.Log("Test");
-        Console.Read();
-      };
+        bind (ILogger = CustomLogger)
+        {
+            ILogger l = new ILogger();
+
+            l.Log("Test");
+            Console.Read();
+        };
 
     }
 }

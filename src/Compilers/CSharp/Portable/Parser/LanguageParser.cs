@@ -8149,14 +8149,23 @@ tryAgain:
             var @bind = this.EatToken(SyntaxKind.BindKeyword);
             var openParen = this.EatToken(SyntaxKind.OpenParenToken);
 
-            var interfaceId = this.ParseType(false);
-            var equalsToken = this.EatToken(SyntaxKind.EqualsToken);
-            var classId = this.ParseType(false);
-
+            var binds = new SyntaxListBuilder<BindSectionSyntax>(10);
+            while (true)
+            {
+                if (this.CurrentToken.Kind == SyntaxKind.CloseParenToken) break;
+                var interfaceId = this.ParseType(false);
+                var equalsToken = this.EatToken(SyntaxKind.EqualsToken);
+                var classId = this.ParseType(false);
+                SyntaxToken commaToken = null;
+                if (this.CurrentToken.Kind == SyntaxKind.CommaToken)
+                    commaToken = this.EatToken(SyntaxKind.CommaToken);
+                binds.Add(new BindSectionSyntax(SyntaxKind.BindSection, interfaceId, equalsToken, classId, commaToken));
+            }
+          
             var closeParen = this.EatToken(SyntaxKind.CloseParenToken);
             var statement = this.ParseEmbeddedStatement(false);
 
-            return _syntaxFactory.BindStatement(@bind, openParen, interfaceId, equalsToken, classId, closeParen, statement);
+            return _syntaxFactory.BindStatement(@bind, openParen, binds.ToList(), closeParen, statement);
         }
 
         private UsingStatementSyntax ParseUsingStatement()

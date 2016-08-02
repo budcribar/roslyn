@@ -474,6 +474,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         // statements that didn't fit above
         LocalFunctionStatement = 8830,
         BindStatement = 8831,
+        BindSection = 8832,
 
         // declarations
         CompilationUnit = 8840,

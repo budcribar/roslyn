@@ -1,5 +1,9 @@
 del TestBindToNoInterface.exe
 del TestBind.exe
+del TestBindMultipleInterfaces.exe
+..\Binaries\Debug\csc.exe TestBindMultipleInterfaces.cs /r:Bind.dll
+TestBindMultipleInterfaces.exe
+pause
 
 ..\Binaries\Debug\csc.exe TestBindToInt.cs /r:Bind.dll
 
@@ -8,4 +12,5 @@ del TestBindToNoInterface.exe
 TestBindToNoInterface.exe
 ..\Binaries\Debug\csc.exe TestBind.cs /r:Bind.dll
 TestBind.exe
+
 pause

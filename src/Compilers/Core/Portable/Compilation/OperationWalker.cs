@@ -171,7 +171,7 @@ namespace Microsoft.CodeAnalysis.Semantics
         public override void VisitBindStatement(IBindStatement operation)
         {
             Visit(operation.Body);
-            Visit(operation.Binds);
+            VisitArray(operation.Binds);
         }
         public override void VisitFixedStatement(IFixedStatement operation)
         {

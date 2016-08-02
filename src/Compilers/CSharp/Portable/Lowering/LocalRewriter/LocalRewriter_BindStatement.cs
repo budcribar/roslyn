@@ -10,6 +10,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
 using Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax;
 
+
 namespace Microsoft.CodeAnalysis.CSharp
 {
     internal sealed partial class LocalRewriter
@@ -17,20 +18,18 @@ namespace Microsoft.CodeAnalysis.CSharp
         public override BoundNode VisitBindStatement(BoundBindStatement node)
         {
             // Generate code for: Bind.dictionary[typeof(ILogger)] = typeof(Logger);
-          
-            BoundStatement boundStatement = (BoundStatement)Visit(node.Binds);
-            BoundStatement bodyStatement = (BoundStatement)Visit(node.Body);
-
             List<BoundStatement> list = new List<BoundStatement>();
-            if (boundStatement != null) list.Add(boundStatement);
-            list.Add(bodyStatement);
+
+            foreach (var op in node.Binds)
+                list.Add((BoundStatement)Visit((BoundStatement)op));
+          
+            list.Add((BoundStatement)Visit(node.Body));
 
             return new BoundBlock(
                 syntax: node.Syntax,
                 locals: ImmutableArray<LocalSymbol>.Empty,
                 localFunctions: ImmutableArray<LocalFunctionSymbol>.Empty,
                 statements: list.ToImmutableArray());
-
         }
     }
 }

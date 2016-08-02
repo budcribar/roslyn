@@ -2076,16 +2076,9 @@
     </Field>
     <Field Name="Statement" Type="StatementSyntax"/>
   </Node>
-
-  <Node Name="BindStatementSyntax" Base="StatementSyntax">
-    <Kind Name="BindStatement"/>
-    <Field Name="BindKeyword" Type="SyntaxToken">
-      <Kind Name="BindKeyword"/>
-    </Field>
-    <Field Name="OpenParenToken" Type="SyntaxToken">
-      <Kind Name="OpenParenToken"/>
-    </Field>
-
+  
+  <Node Name="BindSectionSyntax" Base="CSharpSyntaxNode">
+    <Kind Name="BindSection"/>
     <Field Name="InterfaceIdentifier" Type="TypeSyntax">
       <PropertyComment>
         <summary>InterfaceIdentifier representing the interface which will bind to a class.</summary>
@@ -2107,7 +2100,26 @@
       <Kind Name="IdentifierToken"/>
 
     </Field>
+    <Field Name="CommaToken" Type="SyntaxToken" Optional="true"/>
+  </Node>
+
+  <Node Name="BindStatementSyntax" Base="StatementSyntax">
+    <Kind Name="BindStatement"/>
+    <Field Name="BindKeyword" Type="SyntaxToken">
+      <Kind Name="BindKeyword"/>
+    </Field>
+    <Field Name="OpenParenToken" Type="SyntaxToken">
+      <Kind Name="OpenParenToken"/>
+    </Field>
     
+    <Field Name="Bindings" Type="SyntaxList&lt;BindSectionSyntax&gt;">
+      <PropertyComment>
+        <summary>
+          Gets a SyntaxList of BindSyntax's.
+        </summary>
+      </PropertyComment>
+    </Field>
+   
     <Field Name="CloseParenToken" Type="SyntaxToken">
       <Kind Name="CloseParenToken"/>
     </Field>
