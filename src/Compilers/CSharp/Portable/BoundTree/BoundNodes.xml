@@ -312,6 +312,7 @@
     <Field Name="InterfaceNames" Type="ImmutableArray&lt;string&gt;" Null="disallow"/>
     <Field Name="ClassNames" Type="ImmutableArray&lt;string&gt;" Null="disallow"/>
     <Field Name="Binds" Type="ImmutableArray&lt;IOperation&gt;" Null="disallow"/>
+    <Field Name="Unbinds" Type="ImmutableArray&lt;IOperation&gt;" Null="disallow"/>
     <Field Name="Body" Type="BoundStatement"/>
   </Node>
 

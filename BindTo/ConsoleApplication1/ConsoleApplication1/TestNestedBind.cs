@@ -13,12 +13,6 @@ public class Executive
 
 }
 
-public interface IStatement
-{
-    void Execute();
-}
-
-
 public interface ILogger
 {
     // ILogger();
@@ -30,10 +24,6 @@ public class Logger : ILogger
     public void Log(string text) { Console.WriteLine(text); }
 }
 
-public class Statement : IStatement
-{
-    public void Execute() => Console.WriteLine("Statement Executed");
-}
 
 public class CustomLogger : ILogger
 {
@@ -44,17 +34,24 @@ public class Program
 {
     public static void Main(string[] args)
     {
-       bind (ILogger = CustomLogger, IStatement = Statement) {
-
+        bind (ILogger = CustomLogger)
+        {
+            // Custom
             new Executive().Run();
-            var stmt = new IStatement();
-            
-            stmt.Execute();
+
             bind (ILogger = Logger)
             {
+                // Standard
                 new Executive().Run();
             };
+
+            // Custom
             new Executive().Run();
         }
+
+        // Unbound
+        new Executive().Run();
+        Console.Read();
+    }
 } 
 

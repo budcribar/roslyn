@@ -43,9 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bind.cs" />
+    <Compile Include="Registry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestBindMultipleInterfaces.cs" />
+    <Compile Include="TestNestedBind.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

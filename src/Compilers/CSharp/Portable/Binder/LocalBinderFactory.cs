@@ -315,7 +315,7 @@ namespace Microsoft.CodeAnalysis.CSharp
               
                 string type = ((IdentifierNameSyntax)node.Type).Identifier.Text;
 
-                var code = $"System.Bind.Get(typeof({type})).GetConstructor(new Type[] {{}}).Invoke(new object[] {{}} ) as {type}";
+                var code = $"System.Registry.GetInstance(typeof({type})) as {type}";
 
                 var stmt = SyntaxFactory.ParseStatement(code) as ExpressionStatementSyntax;
 
@@ -337,17 +337,24 @@ namespace Microsoft.CodeAnalysis.CSharp
 
                 if (i != null && c != null)
                 {
-                    var code = $"System.Bind.Add(typeof({i.Identifier.ValueText}), typeof({c.Identifier.ValueText}));";
-
+                    var code = $"System.Registry.Add(typeof({i.Identifier.ValueText}), typeof({c.Identifier.ValueText}));";
                     var stmt = SyntaxFactory.ParseStatement(code) as ExpressionStatementSyntax;
-
                     AddToMap(stmt, bindBinder);
                     Visit(stmt, bindBinder);
+                    bindBinder.AddToRegistryStatements.Add(stmt);
+
+                    code = $"System.Registry.Pop(typeof({i.Identifier.ValueText}));";
+                    stmt = SyntaxFactory.ParseStatement(code) as ExpressionStatementSyntax;
+                    AddToMap(stmt, bindBinder);
+                    Visit(stmt, bindBinder);
+                    bindBinder.CleanupRegistryStatements.Add(stmt);
 
                     Visit(bs.InterfaceIdentifier, bindBinder);
                     Visit(bs.ClassIdentifier, bindBinder);
 
-                    bindBinder.ExpressionStatement.Add(stmt);
+                    // TODO: Test if Class implements Interface
+
+                    
                 }
             }        
             

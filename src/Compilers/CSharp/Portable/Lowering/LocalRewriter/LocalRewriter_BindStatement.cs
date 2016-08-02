@@ -25,6 +25,9 @@ namespace Microsoft.CodeAnalysis.CSharp
           
             list.Add((BoundStatement)Visit(node.Body));
 
+            foreach (var op in node.Unbinds)
+                list.Add((BoundStatement)Visit((BoundStatement)op));
+
             return new BoundBlock(
                 syntax: node.Syntax,
                 locals: ImmutableArray<LocalSymbol>.Empty,

@@ -8,7 +8,9 @@ namespace Microsoft.CodeAnalysis.CSharp
     internal sealed class BindStatementBinder : Binder
     {
         private readonly BindStatementSyntax _syntax;
-        public List<ExpressionStatementSyntax> ExpressionStatement { get; set; } = new List<ExpressionStatementSyntax>();
+        public List<ExpressionStatementSyntax> AddToRegistryStatements { get; set; } = new List<ExpressionStatementSyntax>();
+        public List<StatementSyntax> CleanupRegistryStatements { get; set; } = new List<StatementSyntax>();
+
         public BindStatementBinder(Binder enclosing, BindStatementSyntax syntax)
             : base(enclosing)
         {
@@ -48,12 +50,17 @@ namespace Microsoft.CodeAnalysis.CSharp
             var x = l1.ToImmutableArray<string>();
             var y = l2.ToImmutableArray<string>();
 
-            List<IOperation> bound = new List<IOperation>();
+            List<IOperation> binds = new List<IOperation>();
 
-            foreach (var es in ExpressionStatement)
-                bound.Add(originalBinder.BindExpressionStatement(es, diagnostics));
+            foreach (var es in AddToRegistryStatements)
+                binds.Add(originalBinder.BindExpressionStatement(es, diagnostics));
 
-            return new BoundBindStatement(_syntax, x, y, bound.ToImmutableArray(), boundBody, hasErrors);
+            List<IOperation> unbinds = new List<IOperation>();
+
+            foreach (var es in CleanupRegistryStatements)
+                unbinds.Add(originalBinder.BindStatement(es, diagnostics));
+
+            return new BoundBindStatement(_syntax, x, y, binds.ToImmutableArray(), unbinds.ToImmutableArray(), boundBody, hasErrors);
 
         }
     }
