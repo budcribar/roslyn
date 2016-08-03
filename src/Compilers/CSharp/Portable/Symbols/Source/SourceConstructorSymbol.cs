@@ -32,7 +32,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             base(containingType, syntax.GetReference(), syntax.Body?.GetReference(), ImmutableArray.Create(location))
         {
             bool modifierErrors;
+           
             var declarationModifiers = this.MakeModifiers(syntax.Modifiers, methodKind, location, diagnostics, out modifierErrors);
+
+            if (containingType.IsInterface)
+            {
+                declarationModifiers |= DeclarationModifiers.Abstract;
+                declarationModifiers |= DeclarationModifiers.Public;
+                declarationModifiers &= ~DeclarationModifiers.Private;
+            }
+                
+
             this.MakeFlags(methodKind, declarationModifiers, returnsVoid: true, isExtensionMethod: false);
 
             if (IsExtern)

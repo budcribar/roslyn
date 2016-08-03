@@ -45,7 +45,7 @@
   <ItemGroup>
     <Compile Include="Registry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestNestedBind.cs" />
+    <Compile Include="Singleton.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

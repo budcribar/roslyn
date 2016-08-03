@@ -898,6 +898,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 case TypeKind.Struct:
                 case TypeKind.Enum:
                 case TypeKind.Dynamic:
+                case TypeKind.Interface: 
                     return true;
 
                 case TypeKind.Class:

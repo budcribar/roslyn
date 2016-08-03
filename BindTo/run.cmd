@@ -1,7 +1,12 @@
 del TestBindToNoInterface.exe
 del TestBind.exe
 del TestBindMultipleInterfaces.exe
-..\Binaries\Debug\csc.exe TestBindMultipleInterfaces.cs /r:Bind.dll
+
+..\Binaries\Debug\csc.exe /target:library Registry.cs
+..\Binaries\Debug\csc.exe Singleton.cs /r:Registry.dll
+
+pause
+..\Binaries\Debug\csc.exe TestBindMultipleInterfaces.cs /r:Registry.dll
 TestBindMultipleInterfaces.exe
 pause
 

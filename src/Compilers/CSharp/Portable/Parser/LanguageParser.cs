@@ -8160,6 +8160,8 @@ tryAgain:
                 if (this.CurrentToken.Kind == SyntaxKind.CommaToken)
                     commaToken = this.EatToken(SyntaxKind.CommaToken);
                 binds.Add(new BindSectionSyntax(SyntaxKind.BindSection, interfaceId, equalsToken, classId, commaToken));
+
+                if (this.CurrentToken.Kind != SyntaxKind.CommaToken) break;
             }
           
             var closeParen = this.EatToken(SyntaxKind.CloseParenToken);

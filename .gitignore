@@ -185,3 +185,4 @@ $RECYCLE.BIN/
 /BindTo/TestBind.exe
 /BindTo/Bind.dll
 /BindTo/TestBindMultipleInterfaces.exe
+/BindTo/Registry.dll
